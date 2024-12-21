@@ -1,6 +1,0 @@
-{
-  "parent": "mason:item/handheld_rotated",
-  "textures": {
-    "layer0": "mason:item/soultrap_effigy"
-  }
-}
