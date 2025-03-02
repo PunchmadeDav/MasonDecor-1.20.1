@@ -1,6 +1,7 @@
 package arathain.mason.item;
 
 import arathain.mason.init.MasonObjects;
+import arathain.mason.item.SoulRipDamageSource;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
@@ -62,7 +63,7 @@ public class GlaiveItem extends SwordItem {
     public boolean postHit(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         if(attacker instanceof PlayerEntity player) {
             player.spawnSweepAttackParticles();
-            target.damage(target.getWorld().getDamageSources().create(MasonObjects.SOUL_RIP_DMG_TYPE, player), this.attackDamage);
+            target.damage(SoulRipDamageSource.playerRip(player), this.attackDamage);
         }
         return super.postHit(stack, target, attacker);
     }
@@ -87,7 +88,7 @@ public class GlaiveItem extends SwordItem {
                             world.addImportantParticle(ParticleTypes.SOUL_FIRE_FLAME, target.getParticleX(0.5), target.getRandomBodyY(), target.getParticleZ(0.5), (r.nextFloat() - 0.5f) * 0.5f, r.nextFloat()* 0.5f, (r.nextFloat() - 0.5f) * 0.5f);
                         }
                     }
-                    target.damage(player.getWorld().getDamageSources().create(MasonObjects.SOUL_RIP_DMG_TYPE, player), this.attackDamage);
+                    target.damage(SoulRipDamageSource.playerRip(player), this.attackDamage);
                 }
             });
             player.getWorld().playSoundFromEntity(null, player, SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, player.getSoundCategory(), 1F, 1F);

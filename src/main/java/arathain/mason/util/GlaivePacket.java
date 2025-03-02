@@ -2,6 +2,7 @@ package arathain.mason.util;
 
 import arathain.mason.MasonDecor;
 import arathain.mason.init.MasonObjects;
+import arathain.mason.item.SoulRipDamageSource;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -50,7 +51,7 @@ public class GlaivePacket {
                 f += g;
                 Entity crosshairTarget = player.getWorld().getEntityById(entityId);
                 if(crosshairTarget != null) {
-                    crosshairTarget.damage(player.getWorld().getDamageSources().create(MasonObjects.SOUL_RIP_DMG_TYPE), f);
+                    crosshairTarget.damage(SoulRipDamageSource.playerRip(player), f);
                 }
             }
         });
