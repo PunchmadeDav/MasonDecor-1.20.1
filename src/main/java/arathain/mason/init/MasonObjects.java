@@ -45,7 +45,7 @@ public class MasonObjects {
     public static final Block SOULLIGHT = createBlock("soullight", new Block(AbstractBlock.Settings.create().sounds(BlockSoundGroup.METAL).mapColor(MapColor.get(56)).requiresTool().strength(1.5F, 6.0F).sounds(BlockSoundGroup.LANTERN).luminance((blockState) -> 11)), true);
     public static final Block MERCHANT_SIMULACRUM = createBlock("merchant_simulacrum", new MerchantSimulacrumBlock(AbstractBlock.Settings.create().mapColor(MapColor.WARPED_STEM).requiresTool().strength(4F, 16.0F).dropsNothing().sounds(BlockSoundGroup.ANCIENT_DEBRIS).luminance((blockState) -> 1)), true);
 
-    public static final Item GLAIVE = createItem("glaive", new GlaiveItem(5, -2.0F, new QuiltItemSettings().fireproof().rarity(Rarity.RARE).maxCount(1)));
+    public static final Item GLAIVE = createItem("glaive", new GlaiveItem(5, -3.0F, new QuiltItemSettings().fireproof().rarity(Rarity.RARE).maxCount(1)));
     public static final Item SOULMOULD_ITEM = createItem("soulmould", new SoulmouldItem(new QuiltItemSettings().fireproof().rarity(Rarity.UNCOMMON).maxCount(16)));
     public static final Item BONEFLY_SKULL = createItem("bonefly_skull", new BoneflySkullItem(new QuiltItemSettings().fireproof().rarity(Rarity.UNCOMMON).maxCount(16)));
     public static final Item SOULTRAP_EFFIGY_ITEM = createItem("soultrap_effigy", new SoultrapEffigyItem(new QuiltItemSettings().fireproof().rarity(Rarity.RARE).maxCount(1)));
