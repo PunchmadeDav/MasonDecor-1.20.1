@@ -21,7 +21,7 @@ public class ChainsEntityRenderer extends GeoEntityRenderer<ChainsEntity> {
 
     @Override
     public RenderLayer getRenderType(ChainsEntity animatable, Identifier texture, @Nullable VertexConsumerProvider bufferSource, float partialTick) {
-        return null;
+        return RenderLayer.getEntityTranslucent(texture);
     }
 
     @Override
