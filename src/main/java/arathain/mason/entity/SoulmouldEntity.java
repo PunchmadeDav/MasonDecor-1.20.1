@@ -346,8 +346,8 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
             } else {
                 animationBuilder.thenLoop("dormant");
             }
-        } else if(this.getAttackState() == 2) {
-                animationBuilder.thenLoop("attack");
+        } else if (this.getAttackState() == 2) {
+            animationBuilder.thenPlay("attack");
         } else {
             if (!this.hasVehicle() && event.isMoving()) {
                 animationBuilder.thenLoop("walk");
@@ -355,16 +355,12 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
                 animationBuilder.thenLoop("idle");
             }
         }
-
-        if(!animationBuilder.getAnimationStages().isEmpty()) {
-            event.getController().setAnimation(animationBuilder);
-        }
+        event.getController().setAnimation(animationBuilder);
         return PlayState.CONTINUE;
     }
     public double getAngleBetweenEntities(Entity first, Entity second) {
         return Math.atan2(second.getZ() - first.getZ(), second.getX() - first.getX()) * (180 / Math.PI) + 90;
     }
-
 
     @Override
     public void pushAwayFrom(Entity entity) {
