@@ -50,6 +50,7 @@ import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.Optional;
+import java.util.Random;
 import java.util.UUID;
 
 public class RavenEntity extends TameableEntity implements GeoAnimatable {
@@ -61,7 +62,12 @@ public class RavenEntity extends TameableEntity implements GeoAnimatable {
     public RavenEntity(EntityType<? extends TameableEntity> type, World world) {
         super(type, world);
         moveControl = new FlightMoveControl(this, 90, false);
+
+        if (!world.isClient) {
+            this.setRavenType(Type.getRandomType(this.random));
+        }
     }
+
     public float maxWingDeviation;
     public float prevMaxWingDeviation;
     private float whuhhuh = 1.0f;
@@ -105,9 +111,15 @@ public class RavenEntity extends TameableEntity implements GeoAnimatable {
         super.readCustomDataFromNbt(nbt);
         setSitting(nbt.getBoolean("sitting"));
         dataTracker.set(GOING_TO_RECEIVER, nbt.getBoolean("goin"));
+
         if (nbt.contains("Type")) {
-            this.setRavenType(Type.valueOf(nbt.getString("Type")));
+            try {
+                this.setRavenType(Type.valueOf(nbt.getString("Type")));
+            } catch (IllegalArgumentException e) {
+                this.setRavenType(Type.DARK);
+            }
         }
+
         if (nbt.containsUuid("Receiver")) {
             setReceiverUuid(nbt.getUuid("Receiver"));
         } else {
@@ -115,6 +127,7 @@ public class RavenEntity extends TameableEntity implements GeoAnimatable {
             setReceiverUuid(ServerConfigHandler.getPlayerUuidByName(this.getServer(), string));
         }
     }
+
     public Type getRavenType() {
         return Type.valueOf(this.dataTracker.get(TYPE));
     }
@@ -133,16 +146,10 @@ public class RavenEntity extends TameableEntity implements GeoAnimatable {
     }
     protected void initDataTracker() {
         super.initDataTracker();
-
         this.dataTracker.startTracking(SITTING, false);
         this.dataTracker.startTracking(RECEIVER_UUID, Optional.empty());
         this.dataTracker.startTracking(GOING_TO_RECEIVER, false);
-
-        if (this.random.nextInt(11) == 0) {
-            this.dataTracker.startTracking(TYPE, Type.ALBINO.toString());
-        } else {
-            this.dataTracker.startTracking(TYPE, random.nextBoolean() ? Type.DARK.toString() : Type.SEA_GREEN.toString());
-        }
+        this.dataTracker.startTracking(TYPE, Type.DARK.toString());
     }
 
     @Override
@@ -413,9 +420,35 @@ public class RavenEntity extends TameableEntity implements GeoAnimatable {
     }
 
     public enum Type {
-        DARK,
-        ALBINO,
-        SEA_GREEN,
-        THREE_EYED
+        DARK(55),      // 55% chance
+        ALBINO(10),    // 10% chance
+        SEA_GREEN(35), // 35% chance
+        THREE_EYED(0); // 0% chance cuz nametag variant
+
+        private final int weight;
+        private static final Random RANDOM = new Random();
+
+        Type(int weight) {
+            this.weight = weight;
+        }
+
+        public static Type getRandomType(RandomGenerator random) {
+            int totalWeight = 0;
+            for (Type type : Type.values()) {
+                totalWeight += type.weight;
+            }
+
+            int randomValue = RANDOM.nextInt(totalWeight);
+            int currentWeight = 0;
+
+            for (Type type : Type.values()) {
+                currentWeight += type.weight;
+                if (randomValue < currentWeight) {
+                    return type;
+                }
+            }
+
+            return DARK; // Fallback if shii dont work or sumfing
+        }
     }
 }
