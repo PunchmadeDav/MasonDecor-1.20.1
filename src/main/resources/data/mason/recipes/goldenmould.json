@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "DND",
+    "NSN",
+    "DDD"
+  ],
+  "key": {
+    "D": {
+      "item": "minecraft:gold_block"
+    },
+    "N": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "S": {
+      "item": "minecraft:soul_soil"
+    }
+  },
+  "result": {
+    "item": "mason:goldenmould"
+  }
+}
