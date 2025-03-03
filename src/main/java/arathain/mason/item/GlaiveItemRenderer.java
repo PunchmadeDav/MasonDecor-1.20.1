@@ -18,7 +18,7 @@ public class GlaiveItemRenderer implements BuiltinItemRendererRegistry.DynamicIt
     private final Identifier scytheId;
     private ItemRenderer itemRenderer;
     private BakedModel inventoryScytheModel;
-    private BakedModel worldScytheModel;
+    public BakedModel worldScytheModel;
 
     public GlaiveItemRenderer(Identifier tridentId) {
         this.id = new Identifier(tridentId.getNamespace(), tridentId.getPath() + "_renderer");
@@ -35,9 +35,9 @@ public Identifier getQuiltId() {
         this.inventoryScytheModel = mc.getBakedModelManager().getModel(new ModelIdentifier(this.scytheId.getNamespace(), this.scytheId.getPath() + "_gui", "inventory"));
         this.worldScytheModel = mc.getBakedModelManager().getModel(new ModelIdentifier(this.scytheId.getNamespace(), this.scytheId.getPath() + "_handheld", "inventory"));
     }
-    
+
     public void render(ItemStack stack, ModelTransformationMode mode, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-        if (mode != ModelTransformationMode.FIRST_PERSON_LEFT_HAND && mode != ModelTransformationMode.FIRST_PERSON_RIGHT_HAND && mode != ModelTransformationMode.THIRD_PERSON_LEFT_HAND && mode != ModelTransformationMode.THIRD_PERSON_RIGHT_HAND) {
+        if (mode == ModelTransformationMode.GUI) {
             matrices.pop();
             matrices.push();
             this.itemRenderer.renderItem(stack, mode, false, matrices, vertexConsumers, light, overlay, this.inventoryScytheModel);
@@ -53,9 +53,7 @@ public Identifier getQuiltId() {
                 default:
                     leftHanded = false;
             }
-            
-            this.itemRenderer.renderItem(stack, mode, leftHanded, matrices, vertexConsumers, light, overlay, this.worldScytheModel);
+            this.itemRenderer.renderItem(stack, mode == ModelTransformationMode.FIXED ? ModelTransformationMode.FIXED : mode, leftHanded, matrices, vertexConsumers, light, overlay, this.worldScytheModel);
         }
-        
     }
 }
