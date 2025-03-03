@@ -22,8 +22,8 @@ public class SoulmouldEntityModel extends DefaultedEntityGeoModel<SoulmouldEntit
         CoreGeoBone head = this.getAnimationProcessor().getBone("head");
         EntityModelData extraData = animationState.getData(DataTickets.ENTITY_MODEL_DATA);
         if (head != null) {
-            head.setRotX(head.getRotX() + extraData.headPitch() * 3.1415927F / 180.0F);
-            head.setRotY(head.getRotY() + extraData.netHeadYaw() * 0.017453292F);
+            head.setRotX(extraData.headPitch() * ((float) Math.PI / 180F));
+            head.setRotY(extraData.netHeadYaw() * ((float) Math.PI / 180F));
         }
     }
 }
