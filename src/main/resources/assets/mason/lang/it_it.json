@@ -1,0 +1,19 @@
+{
+  "block.mason.torchlight": "Torcialuce",
+  "block.mason.soullight": "Animaluce",
+  "block.mason.merchant_simulacrum": "§eSimulacro del Mercante",
+  "item.mason.soulmould": "§eArmatura Animata",
+  "death.attack.soul_rip.player": "%s è stato temporaneamente catalogato come un Guerriero delle Anime.",
+  "item.mason.glaive": "§eFalcione Fendianime",
+  "item.mason.bonefly_skull": "§eTeschio di Mosca-cava",
+  "item.mason.soultrap_effigy": "§eEffigie Intrappola-anime",
+  "key.mason.descend": "Scendere",
+  "category.mason.keybind": "Mason Decor",
+  "entity.mason.ripped_soul": "Anima Strappata",
+  "entity.tot.raven": "Corvo",
+  "entity.mason.soulmould": "§eArmatura Animata",
+  "entity.mason.soul_explosion": "Esplosione delle Anime",
+  "entity.mason.chains": "Catene",
+  "info.tot.mould_activate": "Armatura Animata in stato Guardiano",
+  "info.tot.mould_deactivate": "Armatura Animata in stato Dormiente"
+}
