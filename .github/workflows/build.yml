@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - 1.20.1
+    tags:
+      - 'v*'
   pull_request:
     branches:
       - 1.20.1
@@ -34,3 +36,29 @@ jobs:
         with:
           name: built-mod
           path: build/libs/*.jar
+
+  release:
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: built-mod
+          path: build/libs
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: build/libs/*.jar
+          tag_name: ${{ github.ref_name }}
+          release_name: "Release ${{ github.ref_name }}"
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
