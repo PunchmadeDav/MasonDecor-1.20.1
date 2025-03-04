@@ -11,15 +11,12 @@ import net.minecraft.block.Block;
 import net.minecraft.block.MapColor;
 import net.minecraft.entity.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.damage.DamageType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
+import net.minecraft.item.SpawnEggItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
@@ -57,7 +54,7 @@ public class MasonObjects {
     public static final EntityType<SoulExplosionEntity> SOUL_EXPLOSION = createEntity("soul_explosion", FabricEntityTypeBuilder.create(SpawnGroup.MISC, SoulExplosionEntity::new).trackRangeBlocks(10).dimensions(EntityDimensions.fixed(0.9f, 1.8F)).build());
     public static final EntityType<RippedSoulEntity> RIPPED_SOUL = createEntity("ripped_soul", RippedSoulEntity.createVexAttributes(), FabricEntityTypeBuilder.<RippedSoulEntity>create(SpawnGroup.MONSTER, RippedSoulEntity::new).dimensions(EntityDimensions.changing(0.9F, 0.9F)).fireImmune().build());
 
-
+    public static final Item RAVEN_SPAWN_EGG = createItem("raven_spawn_egg", new SpawnEggItem(RAVEN, 0x000000, 0x404040, new QuiltItemSettings()));
 
     private static <T extends Entity> EntityType<T> createEntity(String name, EntityType<T> type) {
 
@@ -109,7 +106,9 @@ public class MasonObjects {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register((content) -> {
             content.addStack(GLAIVE.getDefaultStack());
         });
-
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.SPAWN_EGGS).register((content) -> {
+            content.addStack(RAVEN_SPAWN_EGG.getDefaultStack());
+        });
         /* I have done what I can, but what I can is never enough */
     }
 }
