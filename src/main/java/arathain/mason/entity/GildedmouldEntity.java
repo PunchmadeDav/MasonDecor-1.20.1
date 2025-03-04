@@ -1,7 +1,7 @@
 package arathain.mason.entity;
 
-import arathain.mason.entity.goal.SoulmouldAttackLogicGoal;
-import arathain.mason.entity.goal.SoulmouldDashSlashGoal;
+import arathain.mason.entity.goal.GildedmouldAttackLogicGoal;
+import arathain.mason.entity.goal.GildedmouldDashSlashGoal;
 import arathain.mason.entity.goal.TamedAttackWithOwnerGoal;
 import arathain.mason.entity.goal.TamedTrackAttackerGoal;
 import arathain.mason.init.MasonObjects;
@@ -58,25 +58,25 @@ import javax.annotation.Nullable;
 import java.util.Optional;
 import java.util.UUID;
 
-public class SoulmouldEntity extends HostileEntity implements TameableHostileEntity, GeoAnimatable {
+public class GildedmouldEntity extends HostileEntity implements TameableHostileEntity, GeoAnimatable {
     private final AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
-    protected static final TrackedData<Boolean> DORMANT = DataTracker.registerData(SoulmouldEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-    public static final TrackedData<Optional<BlockPos>> DORMANT_POS = DataTracker.registerData(SoulmouldEntity.class, TrackedDataHandlerRegistry.OPTIONAL_BLOCK_POS);
-    public static final TrackedData<Integer> ATTACK_STATE = DataTracker.registerData(SoulmouldEntity.class, TrackedDataHandlerRegistry.INTEGER);
-    public static final TrackedData<Integer> ACTION_STATE = DataTracker.registerData(SoulmouldEntity.class, TrackedDataHandlerRegistry.INTEGER);
-    public static final TrackedData<Direction> DORMANT_DIR = DataTracker.registerData(SoulmouldEntity.class, TrackedDataHandlerRegistry.DIRECTION);
-    private static final TrackedData<Byte> TAMEABLE = DataTracker.registerData(SoulmouldEntity.class, TrackedDataHandlerRegistry.BYTE);
-    private static final TrackedData<Optional<UUID>> OWNER_UUID = DataTracker.registerData(SoulmouldEntity.class, TrackedDataHandlerRegistry.OPTIONAL_UUID);
+    protected static final TrackedData<Boolean> DORMANT = DataTracker.registerData(GildedmouldEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    public static final TrackedData<Optional<BlockPos>> DORMANT_POS = DataTracker.registerData(GildedmouldEntity.class, TrackedDataHandlerRegistry.OPTIONAL_BLOCK_POS);
+    public static final TrackedData<Integer> ATTACK_STATE = DataTracker.registerData(GildedmouldEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    public static final TrackedData<Integer> ACTION_STATE = DataTracker.registerData(GildedmouldEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    public static final TrackedData<Direction> DORMANT_DIR = DataTracker.registerData(GildedmouldEntity.class, TrackedDataHandlerRegistry.DIRECTION);
+    private static final TrackedData<Byte> TAMEABLE = DataTracker.registerData(GildedmouldEntity.class, TrackedDataHandlerRegistry.BYTE);
+    private static final TrackedData<Optional<UUID>> OWNER_UUID = DataTracker.registerData(GildedmouldEntity.class, TrackedDataHandlerRegistry.OPTIONAL_UUID);
     public int activationTicks = 0;
     public int dashSlashTicks = 0;
-    public SoulmouldEntity(EntityType<? extends HostileEntity> entityType, World world) {
+    public GildedmouldEntity(EntityType<? extends HostileEntity> entityType, World world) {
         super(entityType, world);
         this.setStepHeight(1.6f);
         this.setPathfindingPenalty(PathNodeType.LAVA, 0);
         this.setPathfindingPenalty(PathNodeType.DAMAGE_FIRE, 0);
     }
 
-    public static DefaultAttributeContainer.Builder createSoulmouldAttributes() {
+    public static DefaultAttributeContainer.Builder createGildedmouldAttributes() {
         return MobEntity.createAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 160).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 9).add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.32).add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0f).add(EntityAttributes.GENERIC_ARMOR, 24f).add(EntityAttributes.GENERIC_ARMOR_TOUGHNESS, 6f);
     }
     @Override
@@ -87,11 +87,11 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
     protected void initGoals() {
         this.goalSelector.add(6, new LookAtEntityGoal(this, PlayerEntity.class, 8.0f));
         this.goalSelector.add(6, new LookAroundGoal(this));
-        this.goalSelector.add(1, new SoulmouldAttackLogicGoal(this));
-        this.goalSelector.add(0, new SoulmouldDashSlashGoal(this));
+        this.goalSelector.add(1, new GildedmouldAttackLogicGoal(this));
+        this.goalSelector.add(0, new GildedmouldDashSlashGoal(this));
         this.targetSelector.add(1, new TamedTrackAttackerGoal(this));
         this.targetSelector.add(2, new TamedAttackWithOwnerGoal<>(this));
-        this.targetSelector.add(2, new TargetGoal<>(this, LivingEntity.class, 10, true, false, livingEntity -> !livingEntity.equals(this.getOwner()) && !(livingEntity instanceof TameableEntity tamed && tamed.getOwner() != null && tamed.getOwner().equals(this.getOwner())) && !(livingEntity instanceof ArmorStandEntity) && !(livingEntity instanceof SoulmouldEntity mould && mould.isOwner(this.getOwner())) && this.getActionState() == 2 && !(livingEntity instanceof BatEntity) && !(livingEntity instanceof PlayerEntity player && player.getUuid().equals(UUID.fromString("d3f2d795-04f0-4ebf-a398-93f3d4e7c33a")))));
+        this.targetSelector.add(2, new TargetGoal<>(this, LivingEntity.class, 10, true, false, livingEntity -> !livingEntity.equals(this.getOwner()) && !(livingEntity instanceof TameableEntity tamed && tamed.getOwner() != null && tamed.getOwner().equals(this.getOwner())) && !(livingEntity instanceof ArmorStandEntity) && !(livingEntity instanceof GildedmouldEntity mould && mould.isOwner(this.getOwner())) && this.getActionState() == 2 && !(livingEntity instanceof BatEntity) && !(livingEntity instanceof PlayerEntity player && player.getUuid().equals(UUID.fromString("d3f2d795-04f0-4ebf-a398-93f3d4e7c33a")))));
     }
     protected void initDataTracker() {
         super.initDataTracker();
@@ -247,7 +247,7 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
 
     @Override
     public ItemStack getPickBlockStack() {
-        return MasonObjects.SOULMOULD_ITEM.getDefaultStack();
+        return MasonObjects.GILDEDMOULD_ITEM.getDefaultStack();
     }
 
     @Override
@@ -255,7 +255,7 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
         if(player.getStackInHand(hand).isEmpty() && player.getUuid().equals(this.getOwnerUuid())) {
             if(player.isSneaking()) {
                 if(!player.getAbilities().creativeMode)
-                    player.setStackInHand(hand, MasonObjects.SOULMOULD_ITEM.getDefaultStack());
+                    player.setStackInHand(hand, MasonObjects.GILDEDMOULD_ITEM.getDefaultStack());
                 this.remove(RemovalReason.DISCARDED);
                 return ActionResult.SUCCESS;
             } else {
@@ -420,7 +420,7 @@ public class SoulmouldEntity extends HostileEntity implements TameableHostileEnt
     }
 
     @Override
-       public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "controller", 5, this::predicate));
     }
 

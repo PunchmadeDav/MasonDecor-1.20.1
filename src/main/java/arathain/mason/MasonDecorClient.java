@@ -39,6 +39,7 @@ public class MasonDecorClient implements ClientModInitializer {
         initParticles();
         BlockRenderLayerMap.put(RenderLayer.getCutout(), MasonObjects.MERCHANT_SIMULACRUM);
         EntityRendererRegistry.register(MasonObjects.SOULMOULD, SoulmouldEntityRenderer::new);
+        EntityRendererRegistry.register(MasonObjects.GILDEDMOULD, GildedmouldEntityRenderer::new);
         EntityRendererRegistry.register(MasonObjects.SOUL_EXPLOSION, SoulExplosionRenderer::new);
         EntityRendererRegistry.register(MasonObjects.RIPPED_SOUL, RippedSoulEntityRenderer::new);
         EntityRendererRegistry.register(MasonObjects.BONEFLY, BoneflyEntityRenderer::new);

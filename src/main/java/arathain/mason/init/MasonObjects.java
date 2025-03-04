@@ -48,12 +48,14 @@ public class MasonObjects {
     public static final Item GLAIVE = createItem("glaive", new GlaiveItem(5, -3.0F, new QuiltItemSettings().fireproof().rarity(Rarity.RARE).maxCount(1)));
     public static final Item SCYTHE = createItem("scythe", new ScytheItem(5, -3.0F, new QuiltItemSettings().fireproof().rarity(Rarity.RARE).maxCount(1)));
     public static final Item SOULMOULD_ITEM = createItem("soulmould", new SoulmouldItem(new QuiltItemSettings().fireproof().rarity(Rarity.UNCOMMON).maxCount(16)));
+    public static final Item GILDEDMOULD_ITEM = createItem("gildedmould", new GildedmouldItem(new QuiltItemSettings().fireproof().rarity(Rarity.UNCOMMON).maxCount(16)));
     public static final Item BONEFLY_SKULL = createItem("bonefly_skull", new BoneflySkullItem(new QuiltItemSettings().fireproof().rarity(Rarity.UNCOMMON).maxCount(16)));
     public static final Item SOULTRAP_EFFIGY_ITEM = createItem("soultrap_effigy", new SoultrapEffigyItem(new QuiltItemSettings().fireproof().rarity(Rarity.RARE).maxCount(1)));
 
     public static final EntityType<ChainsEntity> CHAINS = createEntity("chains", RavenEntity.createRavenAttributes(), FabricEntityTypeBuilder.create(SpawnGroup.MISC, ChainsEntity::new).dimensions(EntityDimensions.fixed(0.4F, 0.8F)).build());
     public static final EntityType<RavenEntity> RAVEN = createRaven("raven", RavenEntity.createRavenAttributes(), FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, RavenEntity::new).dimensions(EntityDimensions.fixed(0.4F, 0.4F)).build());
     public static final EntityType<SoulmouldEntity> SOULMOULD = createEntity("soulmould", SoulmouldEntity.createSoulmouldAttributes(), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, SoulmouldEntity::new).dimensions(EntityDimensions.fixed(0.85F, 2.7F)).fireImmune().build());
+    public static final EntityType<GildedmouldEntity> GILDEDMOULD = createEntity("gildedmould", GildedmouldEntity.createGildedmouldAttributes(), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, GildedmouldEntity::new).dimensions(EntityDimensions.fixed(0.85F, 2.7F)).fireImmune().build());
     public static final EntityType<BoneflyEntity> BONEFLY = createEntity("bonefly", BoneflyEntity.createBoneflyAttributes(), FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, BoneflyEntity::new).dimensions(EntityDimensions.changing(1.4F, 2.1F)).fireImmune().build());
     public static final EntityType<SoulExplosionEntity> SOUL_EXPLOSION = createEntity("soul_explosion", FabricEntityTypeBuilder.create(SpawnGroup.MISC, SoulExplosionEntity::new).trackRangeBlocks(10).dimensions(EntityDimensions.fixed(0.9f, 1.8F)).build());
     public static final EntityType<RippedSoulEntity> RIPPED_SOUL = createEntity("ripped_soul", RippedSoulEntity.createVexAttributes(), FabricEntityTypeBuilder.<RippedSoulEntity>create(SpawnGroup.MONSTER, RippedSoulEntity::new).dimensions(EntityDimensions.changing(0.9F, 0.9F)).fireImmune().build());
@@ -103,6 +105,7 @@ public class MasonObjects {
             ITEMS.keySet().forEach((item) -> {
                 content.addStack(item.getDefaultStack());
             });
+            content.addStack(SOULMOULD_ITEM.getDefaultStack());
             content.addStack(SOULMOULD_ITEM.getDefaultStack());
             content.addStack(BONEFLY_SKULL.getDefaultStack());
         });

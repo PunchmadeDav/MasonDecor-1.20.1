@@ -7,16 +7,16 @@
   ],
   "key": {
     "D": {
-      "item": "minecraft:gold_block"
+      "item": "minecraft:blackstone_bricks"
     },
     "N": {
-      "item": "minecraft:netherite_ingot"
+      "item": "minecraft:gold_ingot"
     },
     "S": {
-      "item": "minecraft:soul_soil"
+      "item": "minecraft:soul_sand"
     }
   },
   "result": {
-    "item": "mason:goldenmould"
+    "item": "mason:gildedmould"
   }
 }

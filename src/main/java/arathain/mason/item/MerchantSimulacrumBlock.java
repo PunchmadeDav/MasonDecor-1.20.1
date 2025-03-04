@@ -1,5 +1,6 @@
 package arathain.mason.item;
 
+import arathain.mason.entity.GildedmouldEntity;
 import arathain.mason.entity.SoulmouldEntity;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.Block;
@@ -79,5 +80,6 @@ public class MerchantSimulacrumBlock extends Block implements Waterloggable {
     public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
         world.syncGlobalEvent(WorldEvents.WITHER_SPAWNS, pos, 0);
         world.getOtherEntities(player, new Box(pos).expand(100), (entity -> entity instanceof SoulmouldEntity)).forEach(soulmould -> ((SoulmouldEntity)soulmould).setActionState(2));
+        world.getOtherEntities(player, new Box(pos).expand(100), (entity -> entity instanceof GildedmouldEntity)).forEach(gildedmould -> ((GildedmouldEntity)gildedmould).setActionState(2));
     }
 }
