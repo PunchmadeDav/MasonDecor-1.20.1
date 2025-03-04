@@ -4,7 +4,6 @@ import arathain.mason.entity.RavenEntity;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
 import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.loading.json.raw.Bone;
 import software.bernie.geckolib.model.GeoModel;
 
 public class RavenEntityModel extends GeoModel<RavenEntity> {
