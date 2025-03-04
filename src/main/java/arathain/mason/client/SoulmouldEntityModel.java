@@ -1,6 +1,5 @@
 package arathain.mason.client;
 
-import arathain.mason.MasonDecor;
 import arathain.mason.entity.SoulmouldEntity;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib.constant.DataTickets;
