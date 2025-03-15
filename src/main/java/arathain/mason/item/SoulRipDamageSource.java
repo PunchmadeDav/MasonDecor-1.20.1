@@ -7,17 +7,20 @@ import net.minecraft.entity.damage.DamageType;
 import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.Holder;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.Nullable;
 
 public class SoulRipDamageSource extends DamageSource {
     private final Entity source;
 
+    public static final RegistryKey<DamageType> SOUL_RIP_KEY = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, new Identifier("mason", "soul_rip"));
     public static DamageSource playerRip(PlayerEntity attacker) {
         Holder<DamageType> damageType = attacker.getWorld().getRegistryManager()
                 .get(RegistryKeys.DAMAGE_TYPE)
-                .getHolderOrThrow(DamageTypes.MAGIC);
+                .getHolderOrThrow(SOUL_RIP_KEY);
         return new SoulRipDamageSource(damageType, attacker);
     }
 
