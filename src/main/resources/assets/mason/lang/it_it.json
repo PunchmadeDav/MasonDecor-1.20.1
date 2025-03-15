@@ -3,6 +3,7 @@
   "block.mason.soullight": "Animaluce",
   "block.mason.merchant_simulacrum": "§eSimulacro del Mercante",
   "item.mason.soulmould": "§eArmatura Animata",
+  "death.attack.soul_rip": "%s è stato temporaneamente catalogato come un Guerriero delle Anime.",
   "death.attack.soul_rip.player": "%s è stato temporaneamente catalogato come un Guerriero delle Anime.",
   "item.mason.glaive": "§eFalcione Fendianime",
   "item.mason.bonefly_skull": "§eTeschio di Ossalato",
