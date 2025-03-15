@@ -15,7 +15,6 @@ public class SoulRipDamageSource extends DamageSource {
     private final Entity source;
 
     public static DamageSource playerRip(PlayerEntity attacker) {
-        // Retrieve a reference to the MAGIC DamageType from the Registries
         Holder<DamageType> damageType = attacker.getWorld().getRegistryManager()
                 .get(RegistryKeys.DAMAGE_TYPE)
                 .getHolderOrThrow(DamageTypes.MAGIC);
