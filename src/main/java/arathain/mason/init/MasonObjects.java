@@ -39,7 +39,7 @@ public class MasonObjects {
     public static final SoundEvent ENTITY_SOULMOULD_DEATH = createSoundEvent("entity.soulmould.death");
 
     public static final Block TORCHLIGHT = createBlock("torchlight", new Block(AbstractBlock.Settings.create().sounds(BlockSoundGroup.METAL).mapColor(MapColor.get(56)).requiresTool().strength(1.5F, 6.0F).sounds(BlockSoundGroup.LANTERN).luminance((blockState) -> 15)), true);
-    public static final Block SOULLIGHT = createBlock("soullight", new Block(AbstractBlock.Settings.create().sounds(BlockSoundGroup.METAL).mapColor(MapColor.get(56)).requiresTool().strength(1.5F, 6.0F).sounds(BlockSoundGroup.LANTERN).luminance((blockState) -> 11)), true);
+    public static final Block SOULLIGHT = createBlock("soullight", new SoullightBlock(AbstractBlock.Settings.create().sounds(BlockSoundGroup.METAL).mapColor(MapColor.get(56)).requiresTool().strength(1.5F, 6.0F).sounds(BlockSoundGroup.LANTERN).luminance((blockState) -> 11)), true);
     public static final Block MERCHANT_SIMULACRUM = createBlock("merchant_simulacrum", new MerchantSimulacrumBlock(AbstractBlock.Settings.create().mapColor(MapColor.WARPED_STEM).requiresTool().strength(4F, 16.0F).dropsNothing().sounds(BlockSoundGroup.ANCIENT_DEBRIS).luminance((blockState) -> 1)), true);
 
     public static final Item GLAIVE = createItem("glaive", new GlaiveItem(-2, -3.4f, new QuiltItemSettings().fireproof().rarity(Rarity.RARE).maxCount(1)));
