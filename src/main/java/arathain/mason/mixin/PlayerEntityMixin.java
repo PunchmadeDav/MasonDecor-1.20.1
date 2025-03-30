@@ -3,6 +3,8 @@ package arathain.mason.mixin;
 import arathain.mason.entity.BoneflyEntity;
 import arathain.mason.entity.ChainsEntity;
 import arathain.mason.init.MasonObjects;
+import com.github.mim1q.minecells.registry.MineCellsStatusEffects;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
@@ -104,9 +106,25 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     @Override
     public boolean canHaveStatusEffect(StatusEffectInstance effect) {
-        if(this.getInventory().contains(MasonObjects.SOULTRAP_EFFIGY_ITEM.getDefaultStack())) {
-            return effect.getEffectType() == StatusEffects.WITHER || effect.getEffectType() == StatusEffects.INSTANT_DAMAGE || effect.getEffectType() == StatusEffects.INSTANT_HEALTH;
+        if (this.getInventory().contains(MasonObjects.SOULTRAP_EFFIGY_ITEM.getDefaultStack())) {
+            if (effect.getEffectType() == StatusEffects.WITHER
+                    || effect.getEffectType() == StatusEffects.INSTANT_DAMAGE
+                    || effect.getEffectType() == StatusEffects.INSTANT_HEALTH) {
+                return true;
+            }
         }
+        
+        if (FabricLoader.getInstance().isModLoaded("minecells")) {
+            try {
+                Class<?> minecellsEffects = Class.forName("com.github.mim1q.minecells.registry.MineCellsStatusEffects");
+                Object cursedEffect = minecellsEffects.getDeclaredField("CURSED").get(null);
+                if (effect.getEffectType() == cursedEffect) {
+                    return true;
+                }
+            } catch (ClassNotFoundException | NoSuchFieldException | IllegalAccessException e) {
+            }
+        }
+
         return super.canHaveStatusEffect(effect);
     }
     private boolean isInFlowingFluid(TagKey<Fluid> tag) {
