@@ -12,11 +12,11 @@
   "key.mason.descend": "Scendere",
   "category.mason.keybind": "Mason Decor",
   "entity.mason.ripped_soul": "Anima Strappata",
-  "entity.tot.raven": "Corvo",
+  "entity.mason.raven": "Corvo",
   "entity.mason.soulmould": "§eArmatura Animata",
   "entity.mason.soul_explosion": "Esplosione delle Anime",
   "entity.mason.bonefly": "Ossalato",
   "entity.mason.chains": "Catene",
-  "info.tot.mould_activate": "Armatura Animata in stato Guardiano",
-  "info.tot.mould_deactivate": "Armatura Animata in stato Dormiente"
+  "info.mason.mould_activate": "Armatura Animata in stato Guardiano",
+  "info.mason.mould_deactivate": "Armatura Animata in stato Dormiente"
 }

@@ -69,7 +69,7 @@ public class MasonObjects {
     }
     private static <T extends LivingEntity> EntityType<T> createRaven(String name, DefaultAttributeContainer.Builder attributes, EntityType<T> type) {
         FabricDefaultAttributeRegistry.register(type, attributes);
-        ENTITY_TYPES.put(type, new Identifier("tot", name));
+        ENTITY_TYPES.put(type, new Identifier(MasonDecor.MODID, name));
         return type;
     }
     private static <T extends Block> T createBlock(String name, T block, boolean createItem) {
