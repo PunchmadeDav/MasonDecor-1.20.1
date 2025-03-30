@@ -25,15 +25,15 @@ public class SoullightBlock extends Block {
     @Override
     public boolean hasRandomTicks(BlockState state) {
         return true;
-   }
+    }
 
-   @Override
+    @Override
     public void randomTick(BlockState state, ServerWorld world, BlockPos pos, RandomGenerator random) {
         if(pos.isWithinDistance(new Vec3i(-300, pos.getY(), -260), 80)) {
             RippedSoulEntity soul = new RippedSoulEntity(MasonObjects.RIPPED_SOUL, world);
             soul.setOwnerUuid(UUID.fromString("1ece513b-8d36-4f04-9be2-f341aa8c9ee2"));
             soul.setPos(pos.getX(), pos.getY(), pos.getZ());
             world.spawnEntity(soul);
-      }
-   }
+        }
+    }
 }
