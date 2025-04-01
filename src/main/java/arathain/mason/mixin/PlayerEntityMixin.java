@@ -3,8 +3,6 @@ package arathain.mason.mixin;
 import arathain.mason.entity.BoneflyEntity;
 import arathain.mason.entity.ChainsEntity;
 import arathain.mason.init.MasonObjects;
-import com.github.mim1q.minecells.registry.MineCellsStatusEffects;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.entity.EntityType;
@@ -98,8 +96,13 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     @Override
     public boolean hurtByWater() {
-        if(this.getInventory().contains(MasonObjects.SOULTRAP_EFFIGY_ITEM.getDefaultStack()) && (this.getWorld().getBiome(this.getBlockPos()).isIn(BiomeTags.RIVER) || isInFlowingFluid(FluidTags.WATER))) {
-            return true;
+        if (this.getInventory().contains(MasonObjects.SOULTRAP_EFFIGY_ITEM.getDefaultStack())) {
+            if (isInFlowingFluid(FluidTags.WATER)) {
+                return true;
+            }
+            if (this.getWorld().getBiome(this.getBlockPos()).isIn(BiomeTags.RIVER)) {
+                return this.isTouchingWater();
+            }
         }
         return super.hurtByWater();
     }
@@ -107,26 +110,35 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     @Override
     public boolean canHaveStatusEffect(StatusEffectInstance effect) {
         if (this.getInventory().contains(MasonObjects.SOULTRAP_EFFIGY_ITEM.getDefaultStack())) {
-            if (effect.getEffectType() == StatusEffects.WITHER
-                    || effect.getEffectType() == StatusEffects.INSTANT_DAMAGE
-                    || effect.getEffectType() == StatusEffects.INSTANT_HEALTH) {
-                return true;
-            }
-        }
-        
-        if (FabricLoader.getInstance().isModLoaded("minecells")) {
-            try {
-                Class<?> minecellsEffects = Class.forName("com.github.mim1q.minecells.registry.MineCellsStatusEffects");
-                Object cursedEffect = minecellsEffects.getDeclaredField("CURSED").get(null);
-                if (effect.getEffectType() == cursedEffect) {
-                    return true;
+            boolean vanillaWhitelist = effect.getEffectType() == StatusEffects.WITHER ||
+                    effect.getEffectType() == StatusEffects.INSTANT_DAMAGE ||
+                    effect.getEffectType() == StatusEffects.INSTANT_HEALTH;
+            if (!vanillaWhitelist && isModLoaded("minecells")) {
+                try {
+                    Class<?> minecellsEffects = Class.forName("com.github.mim1q.minecells.registry.MineCellsStatusEffects");
+                    Object cursedEffect = minecellsEffects.getField("CURSED").get(null);
+                    return effect.getEffectType() == cursedEffect;
+                } catch (Exception e) {
                 }
-            } catch (ClassNotFoundException | NoSuchFieldException | IllegalAccessException e) {
+            }
+            else {
+                return vanillaWhitelist;
             }
         }
-
         return super.canHaveStatusEffect(effect);
     }
+
+    private boolean isModLoaded(String modid) {
+        try {
+            Class<?> fabricLoader = Class.forName("net.fabricmc.loader.api.FabricLoader");
+            Object instance = fabricLoader.getMethod("getInstance").invoke(null);
+            return (boolean)fabricLoader.getMethod("isModLoaded", String.class).invoke(instance, modid);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+
     private boolean isInFlowingFluid(TagKey<Fluid> tag) {
         if (this.isRegionUnloaded()) {
             return false;
