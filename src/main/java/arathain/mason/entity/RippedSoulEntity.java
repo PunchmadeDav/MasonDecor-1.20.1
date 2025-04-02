@@ -185,7 +185,7 @@ public class RippedSoulEntity extends HostileEntity {
         return (UUID) ((Optional) this.dataTracker.get(OWNER_UUID)).orElse(null);
     }
 
-    public void setOwnerUuid(@javax.annotation.Nullable UUID uuid) {
+    public void setOwnerUuid(@Nullable UUID uuid) {
         this.dataTracker.set(OWNER_UUID, Optional.ofNullable(uuid));
     }
 
